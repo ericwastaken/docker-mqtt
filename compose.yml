@@ -1,0 +1,20 @@
+services:
+  mosquitto:
+    build:
+      context: .
+      args:
+        MOSQUITTO_USERNAME: ${USERNAME}
+        MOSQUITTO_PASSWORD: ${PASSWORD}
+        HOSTNAME: ${HOSTNAME}
+    image: custom-mosquitto:latest
+    restart: unless-stopped
+    ports:
+      - "${MQTT_PORT}:${MQTT_PORT}"
+      - "${WEBSOCKET_PORT}:${WEBSOCKET_PORT}"
+    volumes:
+      - ./certs:/mosquitto/certs
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+    environment:
+      - LOG_TYPE=${LOG_TYPE}
+      - MQTT_PORT=${MQTT_PORT}
+      - WEBSOCKET_PORT=${WEBSOCKET_PORT}
