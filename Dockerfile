@@ -1,15 +1,5 @@
 FROM eclipse-mosquitto:2.0.18-openssl
 
-# Set build arguments
-ARG MOSQUITTO_USERNAME
-ARG MOSQUITTO_PASSWORD
-ARG HOSTNAME
-
-# Set environment variables
-ENV MOSQUITTO_USERNAME=${MOSQUITTO_USERNAME}
-ENV MOSQUITTO_PASSWORD=${MOSQUITTO_PASSWORD}
-ENV HOSTNAME=${HOSTNAME}
-
 # Install necessary packages
 RUN apk update && apk add --no-cache openssl bash gettext
 
@@ -28,4 +18,3 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 COPY mosquitto.conf /mosquitto/config/mosquitto.conf
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["/usr/sbin/mosquitto"]

@@ -12,8 +12,10 @@ fi
 if [ ! -f "/mosquitto/password/passwd" ]; then
     echo "Creating password file..."
     mkdir -p /mosquitto/password
-    mosquitto_passwd -b -c /mosquitto/password/passwd "$MOSQUITTO_USERNAME" "$MOSQUITTO_PASSWORD"
+else
+    echo "Overwriting password file..."
 fi
+mosquitto_passwd -b -c /mosquitto/password/passwd "$USERNAME" "$PASSWORD"
 
 # Ensure proper permissions
 chown -R mosquitto:mosquitto /mosquitto
